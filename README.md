@@ -22,3 +22,4 @@ npm run dev
 Once the development server is running, open your browser and navigate to [http://localhost:5173/](http://localhost:5173/) to view the application.
 
 6. **You can also open my deployed version for this App**
+https://pcalape-articles.vercel.app/
