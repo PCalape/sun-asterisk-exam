@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CreateArticleScreen from './components/CreateArticleScreen';
 import ArticleDetailScreen from './components/ArticleDetailsScreen';
 import EditArticleScreen from './components/EditArticleScreen';
 import ArticleList from './components/ArticleList';
+import { deleteArticle, fetchAllArticles } from './firebase/firestoreQueries';
 import './App.css';
 
 function App() {
@@ -12,8 +13,18 @@ function App() {
   // This state is used to determine which screen to display
   const [screen, setScreen] = useState('top');
 
+  useEffect(() => {
+    const handleDbArticles = async () => {
+      const dbArticles = await fetchAllArticles();
+      setArticles(dbArticles);
+    };
+
+    handleDbArticles();
+  }, []);
+
   const handleDelete = (id) => {
     setArticles(articles.filter(article => article.id !== id));
+    deleteArticle(id);
   };
 
   const handleDetail = (article) => {

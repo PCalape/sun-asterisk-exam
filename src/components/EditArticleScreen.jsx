@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { editArticle } from '../firebase/firestoreQueries';
 import './EditArticleScreen.css';
 
 function EditArticleScreen({ article, setScreen, setArticles }) {
@@ -13,6 +14,7 @@ function EditArticleScreen({ article, setScreen, setArticles }) {
     };
     setArticles(prevArticles => prevArticles.map(a => a.id === updatedArticle.id ? updatedArticle : a));
     setScreen('top');
+    editArticle(article.id, { ...article, title, content });
   };
 
   return (

@@ -1,33 +1,22 @@
 import { useState } from 'react';
 import './CreateArticleScreen.css';
-import { addDoc, collection, getDocs } from "firebase/firestore"; 
-import { db } from '../firebase/firestore.js';
+import { addArticle } from '../firebase/firestoreQueries';
 
 function CreateArticleScreen({ setScreen, setArticles }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
-  const handlePost = async () => {
+  const handlePost = () => {
     const newArticle = {
       id: Math.random(),
       title,
       content,
-      createdDate: new Date().toISOString().slice(0, 10),
+      createdDate: new Date().toISOString(),
     };
     setArticles(prevArticles => [newArticle, ...prevArticles]);
     setScreen('top');
 
-    try {
-      const docRef = await addDoc(collection(db, "articles"), {
-        title,
-        content,
-        createdDate: new Date().toISOString().slice(0, 10)
-      });
-    
-      console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
+    addArticle(title, content);
   };
 
   return (

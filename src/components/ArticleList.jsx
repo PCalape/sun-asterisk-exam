@@ -7,7 +7,7 @@ function ArticleList({ articles, handleEdit, handleDelete, handleDetail }) {
       {articles.map(article => (
         <div className="article" key={article.id} onClick={() => handleDetail(article)}>
           <h3>{article.title}</h3>
-          <p>{article.content.substring(0, 50)}...</p>
+          <p>{article.content?.substring(0, 50)}...</p>
           <p>Created Date: {article.createdDate}</p>
           <div className="article-buttons">
             <button onClick={(e) => { e.stopPropagation(); handleEdit(article); }}>Edit</button>
