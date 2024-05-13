@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import './CreateArticleScreen.css';
+import { addDoc, collection, getDocs } from "firebase/firestore"; 
+import { db } from '../firebase/firestore.js';
 
 function CreateArticleScreen({ setScreen, setArticles }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
-  const handlePost = () => {
+  const handlePost = async () => {
     const newArticle = {
       id: Math.random(),
       title,
@@ -14,6 +16,18 @@ function CreateArticleScreen({ setScreen, setArticles }) {
     };
     setArticles(prevArticles => [newArticle, ...prevArticles]);
     setScreen('top');
+
+    try {
+      const docRef = await addDoc(collection(db, "articles"), {
+        title,
+        content,
+        createdDate: new Date().toISOString().slice(0, 10)
+      });
+    
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
   };
 
   return (
