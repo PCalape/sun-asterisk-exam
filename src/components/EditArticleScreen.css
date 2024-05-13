@@ -1,0 +1,21 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.update-form {
+    margin-bottom: 20px;
+}
+
+.update-form input[type="text"],
+.update-form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.update-form textarea {
+    height: 200px;
+}
